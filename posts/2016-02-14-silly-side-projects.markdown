@@ -8,7 +8,7 @@ video created by [Mattias Petter Johansson](https://twitter.com/mpjme) entitled
 at the root of something that has been bothering me for months.
 
 In the video Mattias, a functional programing advocate and front-end engineer
-at spotify, describes how he noticed himself loosing the joy he once had for
+at Spotify, describes how he noticed himself losing the joy he once had for
 programming after it became his primary source of income.  In order to rekindle
 the curious spark that attracted him into programming in the first place, he
 started devoting time to 'play' programming.
@@ -25,11 +25,11 @@ One way that he now ensures that 'play' and 'work' don't mix is by consciously
 choosing 'play' projects that have no obvious utility.  Mattias described that
 doing so insures that his 'play' projects don't devolve into work projects.
 
-I identify deeply with Mattias's story.  I have found myself loosing the joy
+I identify deeply with Mattias's story.  I have found myself losing the joy
 and passion I once felt for programming when I first started.  There are a
 number of topics in programming that I am fervently interested in that I have
 been ignoring for months because I knew that it would be impossible to use them
-at work.  Instead, I have spent my freetime learning about topics that I could
+at work.  Instead, I have spent my free time learning about topics that I could
 easily apply at work.  I have prioritized immediate utility to others, and as a
 result, my passion and drive has suffered. That is a shame. However I have
 found a way to remedy the situation.
