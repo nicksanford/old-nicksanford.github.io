@@ -20,9 +20,9 @@ encourages a similar programing style and provides similar guarantees about
 type safety, all with a much more shallow learning curve.
 
 I hope that learning Elm will make front-end development much more interesting
-and fun, as well as expose me to ideas, patterns, and ways of thinking. It
-might even make my third attempt at learning Haskell easier and more fun as
-well.
+and fun, as well as expose me to ML style ideas, patterns, and ways of
+thinking. It might even make my third attempt at learning Haskell easier and
+more fun as well.
 
 I have started by installing Elm and signing up for pragmatic studio's
 [Elm](https://pragmaticstudio.com/Elm) course.  I just started the first few
