@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+    <title>Nick Sanford - first go at elm</title>
+    <link rel="shortcut icon" href="../images/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="../css/default.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+  </head>
+  <body>
+    <main class="wrapper">
+      <div class="highbar">&nbsp;</div>
+      <div class="container no-left-margin">
+        <div class="row">
+          <div class="column profile-header">
+            <div class="row">
+              <h4 class="float-left">
+                <a href="../" class="initial-link">NS</a>
+              </h4>
+            </div>
+
+            <div class="me">
+              <a href="../">
+                <img src="http://www.gravatar.com/avatar/4660a631f578dde60b765f3755ce6b3c?s=160" alt="Gravatar of Nick Sanford (傅有嘉) " title="Gravatar of Nick Sanford (傅有嘉)" class="profile-pic">
+              </a>
+            </div>
+            <div class="row">
+              <div class="column name">
+                <h5>Nick Sanford</h5>
+              </div>
+            </div>
+            <div class="row">
+              <div class="column">I Love Functional Programing,</div>
+            </div>
+            <div class="row">
+              <div class="column">and Building Awesome Software in New York</div>
+            </div>
+            <div class="row links">
+              <div class="column">
+                <a href="https://github.com/nicksanford">
+                  github
+                </a>
+              </div>
+              <div class="column">
+                <a href="mailto:nicholascsanford@gmail.com">
+                  <i class="fa fa-envelope share-icon"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/nicksanforddev">
+                  <i class="fa fa-linkedin share-icon"></i>
+                </a>
+              </div>
+              <div class="column">
+                <a href="../projects.html">projects</a>
+              </div>
+            </div>
+          </div>
+          <div class="column">
+            <div id="content">
+              <h2 class="title">first go at elm</h2>
+
+              <div class="info">
+    Posted on February 16, 2016
+    
+</div>
+
+<p>As mentioned in my <a href="2016-02-14-silly-side-projects.html">previous post</a>, this blog documents the silly side projects that I do for fun and education. I have decided to take a stab at learning <a href="http://elm-lang.org/">Elm</a>, a strongly typed ML style functional programing language that compiles to Javascript. If I like it, I may use it as the front-end of an as of yet half-baked silly side project that has been stewing in my head for a month or two.</p>
+<p>But first: why Elm?</p>
+<p>I decided to start learning Elm because I have heard from a number of individuals in the functional programing community, including a good friend of mine, <a href="https://github.com/lseppala">Lane Seppala</a> who writes Haskell professionally report that Elm not only makes front-end development much more deterministic than vanilla Javascript, but also much more fun. Also, I have heard Elm described as ‘Haskell Lite’, given that it has similar syntax, encourages a similar programing style and provides similar guarantees about type safety, all with a much more shallow learning curve.</p>
+<p>I hope that learning Elm will make front-end development much more interesting and fun, as well as expose me to ideas, patterns, and ways of thinking. It might even make my third attempt at learning Haskell easier and more fun as well.</p>
+<p>I have started by installing Elm and signing up for pragmatic studio’s <a href="https://pragmaticstudio.com/Elm">Elm</a> course. I just started the first few chapters tonight and really like what I see so far.</p>
+<p>On an amusing note: I think it is funny that Elixir and Elm both have a pipe <code>|&gt;</code> operator, but that Elixir passes the return value of the preceding expression into the first parameter of the following function, or in other words <code>a |&gt; b(c) == b(a,c)</code>, whereas Elm (it appears) passes it as the next parameter of the following partially applied function, or <code>a |&gt; b c == b c a</code>. I wonder how easy it will be to remember how the same operator behaves in the two languages when working in a project with an Elixir back-end and an Elm front-end.</p>
+<p>Hopefully that will be the hilarious topic of a later post!</p>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
