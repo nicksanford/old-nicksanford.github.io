@@ -18,7 +18,7 @@ will need for my half baked silly project idea I alluded to in the [previous
 post](2016-02-16-first-go-at-elm.html).
 
 Elm has reinvigorated my passion and curiosity in ML style functional
-programing.  The Elm courses I worked through reccomend declaring function
+programing.  The Elm courses I worked through recommend declaring function
 type signatures before implementing function itself.  I love this development
 workflow because it means you have to think about how your functions will
 compose on a type level before you write them, which frequently leads you down
@@ -76,6 +76,6 @@ a way I can only dream of doing in the React apps I have been involved with so
 far.
 
 In any case I am definitely going to use Elm as my dynamic web front-end of
-choice in my next silly side project.  I will finish the course on signals and
+choice in my next silly side project.  I will finish the course on signals
 and then probably take a bit of a break to complete a silly side project
 prototype which will be the topic of a future post.

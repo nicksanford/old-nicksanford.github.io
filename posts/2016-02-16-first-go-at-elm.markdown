@@ -25,7 +25,7 @@ thinking. It might even make my third attempt at learning Haskell easier and
 more fun as well.
 
 I have started by installing Elm and signing up for pragmatic studio's
-[Elm](https://pragmaticstudio.com/Elm) course.  I just started the first few
+[Elm](https://pragmaticstudio.com/elm) course.  I just started the first few
 chapters tonight and really like what I see so far.
 
 On an amusing note: I think it is funny that Elixir and Elm both have a pipe
