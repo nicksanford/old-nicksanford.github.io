@@ -78,12 +78,12 @@
 <p>Furthermore, working with a good compiler that keeps me honest is something I now realize I need dearly. It is just so damn comforting to know that the compiler is checking my assumptions even when I am not aware I am making them. I am now aware that when I write Ruby or JS I have to constantly second guess myself about whether I am shooting myself in the foot.</p>
 <p>I now wish that I knew Haskell well enough to make use of it’s amazing compiler and actually use it to get shit done. Elm offers a really nice middle ground because I feel that I could quickly become as productive in it as I am in React and develop habits that will make me more productive in Haskell when I start learning it again for the third time.</p>
 <p>Also many concepts that seemed so abstract to me when I was first learning Haskell seem much more within reach. Things such as how to use Maybe or Either are much more intuitive now that I have seen pattern matching on Elixir tuples to handle a very similar concern. The Elixir pattern of using tuples to represent computations that may succeed or fail like so:</p>
-<pre class="elixir"><code>case HttPoison.get(url) do
-  {:ok, value} -&gt;
-    #something with value
-  {:err, err} -&gt;
-    #something with value
-end</code></pre>
+<div class="sourceCode" id="cb1"><pre class="sourceCode elixir"><code class="sourceCode elixir"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">case</span> <span class="cn">HttPoison</span><span class="op">.</span>get(url) <span class="kw">do</span></a>
+<a class="sourceLine" id="cb1-2" data-line-number="2">  {<span class="va">:ok</span>, value} <span class="op">-&gt;</span></a>
+<a class="sourceLine" id="cb1-3" data-line-number="3">    <span class="co">#something with value</span></a>
+<a class="sourceLine" id="cb1-4" data-line-number="4">  {<span class="va">:err</span>, err} <span class="op">-&gt;</span></a>
+<a class="sourceLine" id="cb1-5" data-line-number="5">    <span class="co">#something with value</span></a>
+<a class="sourceLine" id="cb1-6" data-line-number="6"><span class="kw">end</span></a></code></pre></div>
 <p>is very similar to Haskell or Elm’s way of using Either values such as:</p>
 <pre class="elm"><code>case String.parseInt intString of
   Ok value -&gt;

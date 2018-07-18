@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+    <title>Nick Sanford - recurse center</title>
+    <link rel="shortcut icon" href="../images/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="../css/default.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-85405282-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+  <body>
+    <main class="wrapper">
+      <div class="highbar">&nbsp;</div>
+      <div class="container no-left-margin">
+        <div class="row">
+          <div class="column profile-header">
+            <div class="row">
+              <h4 class="float-left">
+                <a href="../" class="initial-link">NS</a>
+              </h4>
+            </div>
+            <div class="me">
+              <a href="../">
+                <img src="http://www.gravatar.com/avatar/4660a631f578dde60b765f3755ce6b3c?s=160" alt="Gravatar of Nick Sanford (傅有嘉) " title="Gravatar of Nick Sanford (傅有嘉)" class="profile-pic" />
+              </a>
+            </div>
+            <div class="row">
+              <div class="column name">
+                <h5>Nick Sanford</h5>
+              </div>
+            </div>
+            <div class="row">
+              <div class="column">I Love Functional Programing,</div>
+            </div>
+            <div class="row">
+              <div class="column">and Building Awesome Software in New York</div>
+            </div>
+            <div class="row links">
+              <div class="column">
+                <a href="https://github.com/nicksanford">
+                  github
+                </a>
+              </div>
+              <div class="column">
+                <a href="mailto:nicholascsanford@gmail.com">
+                  <i class="fa fa-envelope share-icon"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/nicksanforddev">
+                  <i class="fa fa-linkedin share-icon"></i>
+                </a>
+              </div>
+              <div class="column">
+                <a href="../projects.html">projects</a>
+              </div>
+            </div>
+          </div>
+          <div class="column">
+            <div id="content">
+              <h2 class="title">recurse center</h2>
+              <div class="info">
+    Posted on July 18, 2018
+    
+</div>
+
+<p>This post is coming about 2 weeks late but:</p>
+<ol type="1">
+<li>I applied &amp; got into the <a href="https://www.recurse.com/">Recurse Center</a>, YAY!</li>
+<li>2 weeks ago I started my batch (Summer 2)</li>
+</ol>
+<p>My plan going in was to learn more about the following topics:</p>
+<ol type="1">
+<li>Strongly Typed Functional Programming</li>
+<li>Low Level Programming</li>
+<li>Contributing to Open Source projects</li>
+</ol>
+<p>This is a fly by summary of what I have done in my batch so far:</p>
+<p>I have been mainly focused on the first goal of learning more about strongly typed functional programming, working through the <a href="http://haskellbook.com/">Haskell Book</a> and doing all the exercises for all chapters. I am currently on chapter 15. The book has been a fantastic resource and really helped drive home the fundementals which are needed for building real projects in Haskell. The small Haskell exercises / projects I am doing at RC are kept <a href="https://github.com/nicksanford/RC_haskell">here</a>.</p>
+<p>I also gave a 5 minute presentation on folds and unfolds (the slides for which can be found <a href="https://docs.google.com/presentation/d/1Bq_zQINCsicC3pstZ-nyOopeUWwPJHNQXV0eRW8GSho/edit#slide=id.p">here</a>).</p>
+<p>I also worked with Omar on a <a href="https://github.com/nicksanford/haskellchemparser">parser</a> to parse chemical formulas using <a href="https://wiki.haskell.org/Parsec">Parsec</a>, which was my first exposure to using parser combinators and monad transformers and a fantastic exercise.</p>
+<p>I decided that the first project big project which I want to work on during my batch is a BitTorrent client in Haskell. A possible second / alternative project is enabling the nix package manager to install packages from the bittorrent network. Both of those require learning about how bittorrent works / how DHTs work, which I have begun doing by studying a combination of specifications and reference implementations (listed below):</p>
+<p>I have also learned about a number of miscelanious things like how OCaml’s module system works (at a high level), how rust’s traits work (and how the are very similar to Haskell’s typeclasses). I also learned that the state monad is not adding any capabilities that are not already present in folds.</p>
+<h4 id="resources">Resources</h4>
+<p>BitTorrent Implementations:</p>
+<ol type="1">
+<li>Python: <a href="https://github.com/jefflovejapan/drench" class="uri">https://github.com/jefflovejapan/drench</a></li>
+<li>Python: <a href="https://github.com/borzunov/bit-torrent" class="uri">https://github.com/borzunov/bit-torrent</a></li>
+<li>JS: <a href="https://github.com/kzahel/jstorrent" class="uri">https://github.com/kzahel/jstorrent</a></li>
+<li>Erlang: This is a pretty massive file which is going to take a while to understand / untangle. <a href="https://github.com/jlouis/etorrent" class="uri">https://github.com/jlouis/etorrent</a></li>
+<li><a href="https://www.libtorrent.org/" class="uri">https://www.libtorrent.org/</a></li>
+</ol>
+<p>BitTorrent Specifications:</p>
+<ol type="1">
+<li><a href="http://www.bittorrent.org/beps/bep_0000.html" class="uri">http://www.bittorrent.org/beps/bep_0000.html</a></li>
+<li><a href="https://wiki.theory.org/index.php/Main_Page" class="uri">https://wiki.theory.org/index.php/Main_Page</a></li>
+</ol>
+<p>DHT Information Specs / Projects:</p>
+<ol type="1">
+<li><a href="https://en.wikipedia.org/wiki/Kademlia" class="uri">https://en.wikipedia.org/wiki/Kademlia</a></li>
+<li><a href="https://stackoverflow.com/questions/1332107/how-does-dht-in-torrents-work" class="uri">https://stackoverflow.com/questions/1332107/how-does-dht-in-torrents-work</a></li>
+<li><a href="https://github.com/allanlw/dhtplay" class="uri">https://github.com/allanlw/dhtplay</a></li>
+<li><a href="http://www.bittorrent.org/beps/bep_0005.html" class="uri">http://www.bittorrent.org/beps/bep_0005.html</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Magnet_URI_scheme" class="uri">https://en.wikipedia.org/wiki/Magnet_URI_scheme</a></li>
+<li><a href="https://github.com/jlouis/dht" class="uri">https://github.com/jlouis/dht</a></li>
+<li><a href="https://github.com/kevinlynx/dhtcrawler2" class="uri">https://github.com/kevinlynx/dhtcrawler2</a></li>
+<li><a href="https://stackoverflow.com/questions/1181301/how-does-a-dht-in-a-bittorent-client-get-bootstrapped" class="uri">https://stackoverflow.com/questions/1181301/how-does-a-dht-in-a-bittorent-client-get-bootstrapped</a></li>
+</ol>
+<p>Nix + BitTorrent:</p>
+<ol type="1">
+<li><a href="https://github.com/NixOS/nixpkgs/blob/master/nixos/tests/bittorrent.nix" class="uri">https://github.com/NixOS/nixpkgs/blob/master/nixos/tests/bittorrent.nix</a></li>
+<li><a href="https://sourcediver.org/blog/2017/01/18/distributing-nixos-with-ipfs-part-1/" class="uri">https://sourcediver.org/blog/2017/01/18/distributing-nixos-with-ipfs-part-1/</a></li>
+<li><a href="https://news.ycombinator.com/item?id=13436026" class="uri">https://news.ycombinator.com/item?id=13436026</a></li>
+<li><a href="https://github.com/shlevy/nix-plugins" class="uri">https://github.com/shlevy/nix-plugins</a></li>
+</ol>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
