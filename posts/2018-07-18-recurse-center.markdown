@@ -15,7 +15,7 @@ My plan going in was to learn more about the following topics:
 
 This is a fly by summary of what I have done in my batch so far:
 
-I have been mainly focused on the first goal of learning more about strongly typed functional programming, working through the [Haskell Book](http://haskellbook.com/) and doing all the exercises for all chapters. I am currently on chapter 15. The book has been a fantastic resource and really helped drive home the fundementals which are needed for building real projects in Haskell.  The small Haskell exercises / projects I am doing at RC are kept [here](https://github.com/nicksanford/RC_haskell). 
+I have been mainly focused on the first goal of learning more about strongly typed functional programming, working through the [Haskell Book](http://haskellbook.com/) and doing all the exercises for all chapters. I am currently on chapter 15. The book has been a fantastic resource and really helped drive home the fundamentals which are needed for building real projects in Haskell.  The small Haskell exercises / projects I am doing at RC are kept [here](https://github.com/nicksanford/RC_haskell). 
 
 I also gave a 5 minute presentation on folds and unfolds (the slides for which can be found [here](https://docs.google.com/presentation/d/1Bq_zQINCsicC3pstZ-nyOopeUWwPJHNQXV0eRW8GSho/edit#slide=id.p)).
 
@@ -23,7 +23,7 @@ I also worked with Omar on a [parser](https://github.com/nicksanford/haskellchem
 
 I decided that the first project big project which I want to work on during my batch is a BitTorrent client in Haskell.  A possible second / alternative project is enabling the nix package manager to install packages from the bittorrent network. Both of those require learning about how bittorrent works / how DHTs work, which I have begun doing by studying a combination of specifications and reference implementations (listed below):
 
-I have also learned about a number of miscelanious things like how OCaml's module system works (at a high level), how rust's traits work (and how the are very similar to Haskell's typeclasses). I also learned that the state monad is not adding any capabilities that are not already present in folds.
+I have also learned about a number of miscellaneous things like how OCaml's module system works (at a high level), how rust's traits work (and how the are very similar to Haskell's typeclasses). I also learned that the state monad is not adding any capabilities that are not already present in folds.
 
 #### Resources
 BitTorrent Implementations:
