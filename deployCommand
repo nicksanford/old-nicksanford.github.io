@@ -1,10 +1,11 @@
 #!/bin/bash
+# Sourced from:  https://jaspervdj.be/hakyll/tutorials/github-pages-tutorial.html
 git stash
 
 git checkout source
 
-hakyllblog clean
-hakyllblog build
+stack exec hakyllblog clean
+stack exec hakyllblog build
 
 git fetch --all
 git checkout -b master --track origin/master
