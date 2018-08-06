@@ -1030,7 +1030,7 @@ th {
 /* custom styles */
 
 /* tags */
-li {
+ul > li {
   list-style: none;
 }
 
@@ -1086,4 +1086,9 @@ li {
   border-bottom: 1px solid #dedede;
   padding-bottom: 8px;
   text-transform: capitalize;
+}
+
+/* Fix for code blocks breaking responsive layout by default*/
+pre > code {
+  white-space: pre-wrap;
 }
