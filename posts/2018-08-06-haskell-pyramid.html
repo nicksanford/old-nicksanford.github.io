@@ -72,12 +72,11 @@
     
 </div>
 
-<p>Since my last post I have been climbing what I recently heard <a href="https://twitter.com/argumatronic">Julie Moronuki</a> call the the <a href="https://youtu.be/iuwUUlDfHcw?t=47m32s">Haskell Pyramid</a>. I have been learning about the bread and butter abstractions which Haskell programmers use all the time and serve as useful tools to describe and compose programs. These are not only required knowledge to be able to use most of the really cool Haskell features that excite me (which I will cover in a later post) but also useful ways to model computation in general, even if one is not using Haskell.</p>
+<p>Since my last post I have been climbing what I recently heard <a href="https://twitter.com/argumatronic">Julie Moronuki</a> call the <a href="https://youtu.be/iuwUUlDfHcw?t=47m32s">Haskell Pyramid</a>. I have been learning about the bread and butter abstractions which Haskell programmers use all the time and serve as useful tools to describe and compose programs. These are not only required knowledge to be able to use most of the really cool Haskell features that excite me (which I will cover in a later post) but also useful ways to model computation in general, even if one is not using Haskell.</p>
 <p>I have been learning about SemiGroups, Monoids, Functors, Applicatives, Monads, Foldables, Traversables and Reader from the <a href="http://haskellbook.com/">Haskell Book</a>, which Julie co-authored. I figured that now would be a good time to take stock of what I have learned. This is meant to be a fly by of these topics, more of a cheatsheet than a tour. If you want to learn more about these topics, I recommend checking out <a href="http://haskellbook.com/">Haskell Book</a>. All the exercises I worked through to gain an intuition about these abstractions can be found <a href="https://github.com/nicksanford/RC_haskell">here</a></p>
 <p>SemiGroup, Monoid, Functor, Applicative, and Monad are abstractions, which have laws, which concrete implementations must conform to in order to be a valid instances of that abstraction. While learning about these abstractions, I used QuickCheck, a property based testing library, to verify that the instances I wrote conformed to the appropriate laws. I found this to be an extremely effective way to learn new concepts because my test suite was able to serve as a constant feedback loop.</p>
 <h4 id="semigroup">SemiGroup</h4>
-<p>As described on the <a href="https://hackage.haskell.org/package/semigroups">Hackage SemiGroup package</a>, a SemiGroup is an algebreic structure, consisting of a set together with an associative, binary operation (<code>&lt;&gt;</code>).</p>
-<p>I know this function <code>&lt;&gt;</code> is called <code>mappend</code> if on Monoid, but I don’t know what it is called on SemiGroup.</p>
+<p>As described on the <a href="https://hackage.haskell.org/package/semigroups">Hackage SemiGroup package</a>, a SemiGroup is an algebraic structure, consisting of a set together with an associative, binary operation (<code>&lt;&gt;</code>). the I know this function <code>&lt;&gt;</code> is called <code>mappend</code> if on Monoid, but I don’t know what it is called on SemiGroup.</p>
 <p>In order for something to be a valid SemiGroup it’s <code>&lt;&gt;</code> function must be binary (take two arguments) and associative:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb1-1" data-line-number="1">a <span class="fu">&lt;&gt;</span> (b <span class="fu">&lt;&gt;</span> c) <span class="fu">==</span> (a <span class="fu">&lt;&gt;</span> b) <span class="fu">&lt;&gt;</span> c</a></code></pre></div>
 <p>Some things that exhibit SemiGroup behavior include non empty lists, and getting the first and last elements from a sequence of (<code>&lt;&gt;</code>) calls:</p>
@@ -90,7 +89,7 @@
 <div class="sourceCode" id="cb4"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb4-1" data-line-number="1">mempty <span class="fu">&lt;&gt;</span> x <span class="fu">==</span> x</a>
 <a class="sourceLine" id="cb4-2" data-line-number="2">x <span class="fu">&lt;&gt;</span> mempty <span class="fu">==</span> x</a></code></pre></div>
 <p>All Monoids also have the binary associative function <code>&lt;&gt;</code> which can be inherited from their SemiGroup instance, and is called <code>mappend</code> (i.e. <code>&lt;&gt; == mappend</code> if it is being applied to a Monoid).</p>
-<p>Numbers (both over multiplication and addition) boolean conjunction (<code>and</code>) disjunction (<code>or</code>), (<code>a &amp;&amp; b &amp;&amp; c</code>) and (<code>a || b || c</code>) patterns, list concatination and zipping all exhibit Monoidal behavior (i.e. they have an identity value and a binary associtive operation).</p>
+<p>Numbers (both over multiplication and addition) boolean conjunction (<code>and</code>) disjunction (<code>or</code>), (<code>a &amp;&amp; b &amp;&amp; c</code>) and (<code>a || b || c</code>) patterns, list concatenation and zipping all exhibit Monoidal behavior (i.e. they have an identity value and a binary associative operation).</p>
 <p><a href="https://github.com/lucy-zhang">Lucy Zhang</a> also showed me that Groups (which I came across when researching <a href="https://en.wikipedia.org/wiki/Kademlia">Kademlia</a>, the <a href="https://en.wikipedia.org/wiki/Distributed_hash_table">DHT</a> protocol used in BitTorrent and IPFS) are Monoids that have an inverse for every value. An example of groups would be integers over addition, where zero is it’s own inverse, and negative numbers and positive numbers are inverses of each other.</p>
 <p>Monoids have kind <code>*</code>.</p>
 <h4 id="functor">Functor</h4>
@@ -110,7 +109,7 @@
 <p>Something I found profoundly beautiful is when one applies <code>fmap</code> to itself (as in the example below)</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb9-1" data-line-number="1">(fmap <span class="fu">.</span> fmap) show [<span class="dt">Just</span> <span class="dv">1</span>, <span class="dt">Just</span> <span class="dv">3</span>, <span class="dt">Nothing</span>] </a>
 <a class="sourceLine" id="cb9-2" data-line-number="2"><span class="ot">=&gt;</span> [<span class="dt">Just</span> <span class="st">&quot;1&quot;</span>, <span class="dt">Just</span> <span class="st">&quot;3&quot;</span>, <span class="dt">Nothing</span>]</a></code></pre></div>
-<p>the way the types work out requires algebreic substitution of the types:</p>
+<p>the way the types work out requires algebraic substitution of the types:</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="ot">(.) ::</span> (b <span class="ot">-&gt;</span> c) <span class="ot">-&gt;</span> (a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> (a <span class="ot">-&gt;</span> c)</a>
 <a class="sourceLine" id="cb10-2" data-line-number="2"><span class="ot">fmap1 ::</span> <span class="dt">Functor</span> f <span class="ot">=&gt;</span> (a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> f a <span class="ot">-&gt;</span> f b</a>
 <a class="sourceLine" id="cb10-3" data-line-number="3"><span class="ot">fmap2 ::</span> <span class="dt">Functor</span> g <span class="ot">=&gt;</span> (c <span class="ot">-&gt;</span> d) <span class="ot">-&gt;</span> g c <span class="ot">-&gt;</span> g d</a></code></pre></div>
@@ -130,12 +129,12 @@
 <p>It absolutely blew my mind that you could work that out from the types alone without needing to think about what is happening at the value level at all.</p>
 <p>On <code>Maybe</code> or <code>Either</code>, <code>Nothing</code> and <code>Left</code> values are ignored by <code>fmap</code> because they are part of the structure, which must be left intact in order to comply with the functor laws.</p>
 <p>Functor (unlike Monoid) only has a single valid instance for a given type.</p>
-<p>Functors are very useful for transforming values inside of <code>IO</code>. I used this repeatedly in my QuickCheck testing to transform lists generated by QuickCheck into other datastructures which I needed for testing.</p>
+<p>Functors are very useful for transforming values inside of <code>IO</code>. I used this repeatedly in my QuickCheck testing to transform lists generated by QuickCheck into other data-structures which I needed for testing.</p>
 <h4 id="applicative">Applicative</h4>
 <p>As described in the Haskell Book:</p>
 <p>&quot;Applicatives are monoidal functors:</p>
 <ol type="1">
-<li>Monoids give us a way to mash datastructures toghether.</li>
+<li>Monoids give us a way to mash data-structures together.</li>
 <li>Functors give us a way do do function application in a structure.</li>
 <li>Applicatives give us away to apply functions which are themselves in a structure over another structure and then mash the structures together.&quot;</li>
 </ol>
@@ -157,7 +156,7 @@
 <div class="sourceCode" id="cb22"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb22-1" data-line-number="1"><span class="fu">$</span><span class="ot">   ::</span>(a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span>   a <span class="ot">-&gt;</span>   b</a>
 <a class="sourceLine" id="cb22-2" data-line-number="2"><span class="fu">&lt;$&gt;</span><span class="ot"> ::</span>(a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> f a <span class="ot">-&gt;</span> f b</a>
 <a class="sourceLine" id="cb22-3" data-line-number="3"><span class="fu">&lt;*&gt;</span><span class="ot"> ::</span>(a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> f a <span class="ot">-&gt;</span> f b</a></code></pre></div>
-<p>we see that <code>fmap</code> is jut function application over a functor, and applicative application is just functoral application, where the function is within a structure, which implies that the structures must be combined in some way.</p>
+<p>we see that <code>fmap</code> is jut function application over a functor, and applicative application is just functorial application, where the function is within a structure, which implies that the structures must be combined in some way.</p>
 <p><code>&lt;*&gt;</code> lets us do function application on functions in a structure like so:</p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb23-1" data-line-number="1"><span class="dt">Just</span> (<span class="fu">*</span><span class="dv">2</span>) <span class="fu">&lt;*&gt;</span> <span class="dt">Just</span> <span class="dv">3</span></a>
 <a class="sourceLine" id="cb23-2" data-line-number="2"><span class="ot">=&gt;</span> <span class="dt">Just</span> <span class="dv">6</span></a></code></pre></div>
@@ -165,10 +164,10 @@
 <a class="sourceLine" id="cb24-2" data-line-number="2"><span class="ot">=&gt;</span> <span class="dt">Nothing</span></a></code></pre></div>
 <p>Wrapping a function in <code>pure</code> and applying <code>&lt;*&gt;</code> is the same as just fmapping using the function.</p>
 <div class="sourceCode" id="cb25"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb25-1" data-line-number="1">pure f <span class="fu">&lt;*&gt;</span> y <span class="fu">==</span> f <span class="fu">&lt;$&gt;</span> y</a></code></pre></div>
-<p>Applicatives have their structure combined using a monoidal pattern, however because there are multiple possible monoidal patterns on many types, there is no gurantee the applicative will use any specific Monoid instance for that type. Also, there is no typeclass constraint on Applicatives that they must be Monoids.</p>
-<p>The function application component will be the same as <code>fmap</code> though, as there is only one valid factoral instance for a given type.</p>
+<p>Applicatives have their structure combined using a monoidal pattern, however because there are multiple possible monoidal patterns on many types, there is no guarantee the applicative will use any specific Monoid instance for that type. Also, there is no typeclass constraint on Applicatives that they must be Monoids.</p>
+<p>The function application component will be the same as <code>fmap</code> though, as there is only one valid functorial instance for a given type.</p>
 <h4 id="monad">Monad</h4>
-<p>As <a href="https://github.com/ncollins">Nick Collins</a> fantasticlly explained during our Haskell Study group, Monad’s bind (<code>&gt;&gt;=</code>) is nothing more than flatMap.</p>
+<p>As <a href="https://github.com/ncollins">Nick Collins</a> explained during our Haskell Study group, Monad’s bind (<code>&gt;&gt;=</code>) is nothing more than flatMap.</p>
 <p>Definition:</p>
 <div class="sourceCode" id="cb26"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb26-1" data-line-number="1"><span class="kw">class</span> <span class="dt">Applicative</span> m <span class="ot">=&gt;</span> <span class="dt">Monad</span> m <span class="kw">where</span></a>
 <a class="sourceLine" id="cb26-2" data-line-number="2"><span class="ot">(&gt;&gt;=) ::</span> m a <span class="ot">-&gt;</span> (a <span class="ot">-&gt;</span> m b) <span class="ot">-&gt;</span> m b</a>
@@ -178,8 +177,8 @@
 <div class="sourceCode" id="cb27"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb27-1" data-line-number="1">(<span class="fu">&gt;=&gt;</span>) <span class="dt">Monad</span> m <span class="ot">-&gt;</span> (a <span class="ot">-&gt;</span> m b) <span class="ot">-&gt;</span> (b <span class="ot">-&gt;</span> m c) <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> m c</a></code></pre></div>
 <p>I don’t have much to say about monads other than if you just treat them like things which support flatMap (whereby you are able to flatten out structures generated from calling bind, while adding new resulting values to the new structure) I find that they become a lot easier to work with and reason about.</p>
 <h4 id="foldable">Foldable:</h4>
-<p>Foldable (which is a typeclass which allows your datastructure to be folded over), requires only either <code>foldr</code> or or <code>foldMap</code> to be defined. If you define <code>foldMap</code> you need for the type to also have a Monoid instance so you are able to use <code>mappend</code> / <code>mconcat</code> to summarize the monoid structures you are folding over.</p>
-<p>By defining a foldable instance for your type, you are also able to get a number of convenience functions which can be written using folding functions infered automatically including:</p>
+<p>Foldable (which is a typeclass which allows your data-structure to be folded over), requires only either <code>foldr</code> or or <code>foldMap</code> to be defined. If you define <code>foldMap</code> you need for the type to also have a Monoid instance so you are able to use <code>mappend</code> / <code>mconcat</code> to summarize the Monoid structures you are folding over.</p>
+<p>By defining a foldable instance for your type, you are also able to get a number of convenience functions which can be written using folding functions inferred automatically including:</p>
 <div class="sourceCode" id="cb28"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb28-1" data-line-number="1"><span class="ot">foldl' ::</span> (b <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> b <span class="ot">-&gt;</span> t a <span class="ot">-&gt;</span> b</a>
 <a class="sourceLine" id="cb28-2" data-line-number="2"><span class="ot">toList ::</span> t a <span class="ot">-&gt;</span> [a]</a>
 <a class="sourceLine" id="cb28-3" data-line-number="3">null<span class="ot"> ::</span> t a <span class="ot">-&gt;</span> <span class="dt">Bool</span></a>
