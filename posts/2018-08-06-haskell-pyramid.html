@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+    <title>Nick Sanford - haskell pyramid</title>
+    <link rel="shortcut icon" href="../images/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="../css/default.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-85405282-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+  <body>
+    <main class="wrapper">
+      <div class="highbar">&nbsp;</div>
+      <div class="container no-left-margin">
+        <div class="row">
+          <div class="column profile-header">
+            <div class="row">
+              <h4 class="float-left">
+                <a href="../" class="initial-link">NS</a>
+              </h4>
+            </div>
+            <div class="me">
+              <a href="../">
+                <img src="http://www.gravatar.com/avatar/4660a631f578dde60b765f3755ce6b3c?s=160" alt="Gravatar of Nick Sanford (傅有嘉) " title="Gravatar of Nick Sanford (傅有嘉)" class="profile-pic" />
+              </a>
+            </div>
+            <div class="row">
+              <div class="column name">
+                <h5>Nick Sanford</h5>
+              </div>
+            </div>
+            <div class="row">
+              <div class="column">I Love Functional Programing,</div>
+            </div>
+            <div class="row">
+              <div class="column">and Building Awesome Software in New York</div>
+            </div>
+            <div class="row links">
+              <div class="column">
+                <a href="https://github.com/nicksanford">
+                  github
+                </a>
+              </div>
+              <div class="column">
+                <a href="mailto:nicholascsanford@gmail.com">
+                  <i class="fa fa-envelope share-icon"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/nicksanforddev">
+                  <i class="fa fa-linkedin share-icon"></i>
+                </a>
+              </div>
+              <div class="column">
+                <a href="../projects.html">projects</a>
+              </div>
+            </div>
+          </div>
+          <div class="column">
+            <div id="content">
+              <h2 class="title">haskell pyramid</h2>
+              <div class="info">
+    Posted on August  6, 2018
+    
+</div>
+
+<p>Since my last post I have been climbing what I recently heard <a href="https://twitter.com/argumatronic">Julie Moronuki</a> call the the <a href="https://youtu.be/iuwUUlDfHcw?t=47m32s">Haskell Pyramid</a>. I have been learning about the bread and butter abstractions which Haskell programmers use all the time and serve as useful tools to describe and compose programs. These are not only required knowledge to be able to use most of the really cool Haskell features that excite me (which I will cover in a later post) but also useful ways to model computation in general, even if one is not using Haskell.</p>
+<p>I have been learning about SemiGroups, Monoids, Functors, Applicatives, Monads, Foldables, Traversables and Reader from the <a href="http://haskellbook.com/">Haskell Book</a>, which Julie co-authored. I figured that now would be a good time to take stock of what I have learned. This is meant to be a fly by of these topics, more of a cheatsheet than a tour. If you want to learn more about these topics, I recommend checking out <a href="http://haskellbook.com/">Haskell Book</a>. All the exercises I worked through to gain an intuition about these abstractions can be found <a href="https://github.com/nicksanford/RC_haskell">here</a></p>
+<p>SemiGroup, Monoid, Functor, Applicative, and Monad are abstractions, which have laws, which concrete implementations must conform to in order to be a valid instances of that abstraction. While learning about these abstractions, I used QuickCheck, a property based testing library, to verify that the instances I wrote conformed to the appropriate laws. I found this to be an extremely effective way to learn new concepts because my test suite was able to serve as a constant feedback loop.</p>
+<h4 id="semigroup">SemiGroup</h4>
+<p>As described on the <a href="https://hackage.haskell.org/package/semigroups">Hackage SemiGroup package</a>, a SemiGroup is an algebreic structure, consisting of a set together with an associative, binary operation (<code>&lt;&gt;</code>).</p>
+<p>I know this function <code>&lt;&gt;</code> is called <code>mappend</code> if on Monoid, but I don’t know what it is called on SemiGroup.</p>
+<p>In order for something to be a valid SemiGroup it’s <code>&lt;&gt;</code> function must be binary (take two arguments) and associative:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb1-1" data-line-number="1">a <span class="fu">&lt;&gt;</span> (b <span class="fu">&lt;&gt;</span> c) <span class="fu">==</span> (a <span class="fu">&lt;&gt;</span> b) <span class="fu">&lt;&gt;</span> c</a></code></pre></div>
+<p>Some things that exhibit SemiGroup behavior include non empty lists, and getting the first and last elements from a sequence of (<code>&lt;&gt;</code>) calls:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="dt">First</span> <span class="dv">1</span> <span class="fu">&lt;&gt;</span> <span class="dt">First</span> <span class="dv">2</span> <span class="fu">&lt;&gt;</span> <span class="dt">First</span> <span class="dv">3</span></a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="ot">=&gt;</span> <span class="dt">First</span> <span class="dv">1</span></a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="dt">Last</span> <span class="dv">1</span> <span class="fu">&lt;&gt;</span> <span class="dt">Last</span> <span class="dv">2</span> <span class="fu">&lt;&gt;</span> <span class="dt">Last</span> <span class="dv">3</span></a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="ot">=&gt;</span> <span class="dt">Last</span> <span class="dv">3</span></a></code></pre></div>
+<h4 id="monoid">Monoid</h4>
+<p>Monoids are a SemiGroup that has an identity value (described by <code>mempty</code>) such that:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb4-1" data-line-number="1">mempty <span class="fu">&lt;&gt;</span> x <span class="fu">==</span> x</a>
+<a class="sourceLine" id="cb4-2" data-line-number="2">x <span class="fu">&lt;&gt;</span> mempty <span class="fu">==</span> x</a></code></pre></div>
+<p>All Monoids also have the binary associative function <code>&lt;&gt;</code> which can be inherited from their SemiGroup instance, and is called <code>mappend</code> (i.e. <code>&lt;&gt; == mappend</code> if it is being applied to a Monoid).</p>
+<p>Numbers (both over multiplication and addition) boolean conjunction (<code>and</code>) disjunction (<code>or</code>), (<code>a &amp;&amp; b &amp;&amp; c</code>) and (<code>a || b || c</code>) patterns, list concatination and zipping all exhibit Monoidal behavior (i.e. they have an identity value and a binary associtive operation).</p>
+<p><a href="https://github.com/lucy-zhang">Lucy Zhang</a> also showed me that Groups (which I came across when researching <a href="https://en.wikipedia.org/wiki/Kademlia">Kademlia</a>, the <a href="https://en.wikipedia.org/wiki/Distributed_hash_table">DHT</a> protocol used in BitTorrent and IPFS) are Monoids that have an inverse for every value. An example of groups would be integers over addition, where zero is it’s own inverse, and negative numbers and positive numbers are inverses of each other.</p>
+<p>Monoids have kind <code>*</code>.</p>
+<h4 id="functor">Functor</h4>
+<p>Functors have some structure that is not able to be altered, but which can allow for transformations on values that are not part of the structure. List, Maybe, Either, Tuples, and functions are all functors.</p>
+<p>They implement <code>fmap</code>, which can also be written as <code>&lt;$&gt;</code>.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb5-1" data-line-number="1">fmap<span class="ot"> ::</span> <span class="dt">Functor</span> f <span class="ot">=&gt;</span> (a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> f a <span class="ot">-&gt;</span> f b</a></code></pre></div>
+<p>and have the following laws which they must obey to preserve their structure:</p>
+<h5 id="identity">identity</h5>
+<div class="sourceCode" id="cb6"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb6-1" data-line-number="1">fmap id <span class="fu">==</span> id</a></code></pre></div>
+<h5 id="composition">composition</h5>
+<div class="sourceCode" id="cb7"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb7-1" data-line-number="1">fmap (f <span class="fu">.</span> g) <span class="fu">==</span> fmap f <span class="fu">.</span> fmap g</a></code></pre></div>
+<p>If you try to change the structure of a functor it will violate the composition law, as applying <code>fmap</code> multiple times will yield a different result, than just applying it once and composing two functions.</p>
+<p>Functors must have kind <code>* -&gt; *</code> as they must have a type inhabitant which is not part of the structure, such as the <code>Right</code> values in the case of <code>Either</code>, or list elements in the case of Lists .</p>
+<p>Lists, functions, and <code>IO</code> are all examples of functors. Function composition, <code>.</code>, is <code>fmap</code> on functions:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="ot">(.) ::</span> (b <span class="ot">-&gt;</span> c) <span class="ot">-&gt;</span> (a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> (a <span class="ot">-&gt;</span> c)</a></code></pre></div>
+<p>where <code>f</code> is <code>(-&gt; a)</code>.</p>
+<p>Something I found profoundly beautiful is when one applies <code>fmap</code> to itself (as in the example below)</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb9-1" data-line-number="1">(fmap <span class="fu">.</span> fmap) show [<span class="dt">Just</span> <span class="dv">1</span>, <span class="dt">Just</span> <span class="dv">3</span>, <span class="dt">Nothing</span>] </a>
+<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="ot">=&gt;</span> [<span class="dt">Just</span> <span class="st">&quot;1&quot;</span>, <span class="dt">Just</span> <span class="st">&quot;3&quot;</span>, <span class="dt">Nothing</span>]</a></code></pre></div>
+<p>the way the types work out requires algebreic substitution of the types:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="ot">(.) ::</span> (b <span class="ot">-&gt;</span> c) <span class="ot">-&gt;</span> (a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> (a <span class="ot">-&gt;</span> c)</a>
+<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="ot">fmap1 ::</span> <span class="dt">Functor</span> f <span class="ot">=&gt;</span> (a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> f a <span class="ot">-&gt;</span> f b</a>
+<a class="sourceLine" id="cb10-3" data-line-number="3"><span class="ot">fmap2 ::</span> <span class="dt">Functor</span> g <span class="ot">=&gt;</span> (c <span class="ot">-&gt;</span> d) <span class="ot">-&gt;</span> g c <span class="ot">-&gt;</span> g d</a></code></pre></div>
+<p>In <code>fmap . fmap</code> the type signature expands out to</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb11-1" data-line-number="1">((a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> (f a <span class="ot">-&gt;</span> f b)) <span class="ot">-&gt;</span> ((c <span class="ot">-&gt;</span> d) <span class="ot">-&gt;</span> (g c <span class="ot">-&gt;</span> g d))</a></code></pre></div>
+<p>Because we know that the <code>b</code> in compose</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb12-1" data-line-number="1">(b <span class="ot">-&gt;</span> c) <span class="ot">-&gt;</span> (a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> (a <span class="ot">-&gt;</span> c)</a></code></pre></div>
+<p>is the same as:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb13-1" data-line-number="1">(a <span class="ot">-&gt;</span> b)</a></code></pre></div>
+<p>in the first fmap, and</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb14-1" data-line-number="1">(g c <span class="ot">-&gt;</span> g d)</a></code></pre></div>
+<p>in the second fmap</p>
+<p>we know that <code>f a</code> from the first fmap can be rewritten as <code>f (g c)</code> and <code>f b</code> from the second can be rewritten as <code>f (g d)</code>,</p>
+<p>which means we can rewrite our type signature for <code>fmap . fmap</code> as</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb15-1" data-line-number="1">(c <span class="ot">-&gt;</span> d) <span class="ot">-&gt;</span> (f (g c) <span class="ot">-&gt;</span> f (g d))</a></code></pre></div>
+<p>which describes at the type level transforming a value within a functor, within a functor.</p>
+<p>It absolutely blew my mind that you could work that out from the types alone without needing to think about what is happening at the value level at all.</p>
+<p>On <code>Maybe</code> or <code>Either</code>, <code>Nothing</code> and <code>Left</code> values are ignored by <code>fmap</code> because they are part of the structure, which must be left intact in order to comply with the functor laws.</p>
+<p>Functor (unlike Monoid) only has a single valid instance for a given type.</p>
+<p>Functors are very useful for transforming values inside of <code>IO</code>. I used this repeatedly in my QuickCheck testing to transform lists generated by QuickCheck into other datastructures which I needed for testing.</p>
+<h4 id="applicative">Applicative</h4>
+<p>As described in the Haskell Book:</p>
+<p>&quot;Applicatives are monoidal functors:</p>
+<ol type="1">
+<li>Monoids give us a way to mash datastructures toghether.</li>
+<li>Functors give us a way do do function application in a structure.</li>
+<li>Applicatives give us away to apply functions which are themselves in a structure over another structure and then mash the structures together.&quot;</li>
+</ol>
+<p>Applicatives have 2 operations:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb16-1" data-line-number="1">pure<span class="ot"> ::</span> <span class="dt">Applicative</span> f <span class="ot">=&gt;</span> a <span class="ot">-&gt;</span> f a</a></code></pre></div>
+<p>which takes a value of any type and puts it into an applicative context</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="ot">(&lt;*&gt;) ::</span> <span class="dt">Applicative</span> f <span class="ot">=&gt;</span> f (a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> f a <span class="ot">-&gt;</span> f b</a></code></pre></div>
+<p>which applies a function in an applicative structure to values in an applicative structure, and combines the two applicative structures.</p>
+<p>They must together follow the following laws:</p>
+<h5 id="identity-1">Identity</h5>
+<div class="sourceCode" id="cb18"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb18-1" data-line-number="1">pure id <span class="fu">&lt;*&gt;</span> v <span class="fu">=</span> v</a></code></pre></div>
+<h5 id="composition-1">Composition</h5>
+<div class="sourceCode" id="cb19"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb19-1" data-line-number="1">pure (<span class="fu">.</span>) <span class="fu">&lt;*&gt;</span> u <span class="fu">&lt;*&gt;</span> v <span class="fu">&lt;*&gt;</span> w <span class="fu">=</span> u <span class="fu">&lt;*&gt;</span> (v <span class="fu">&lt;*&gt;</span> w)</a></code></pre></div>
+<h5 id="homomorphism">Homomorphism</h5>
+<div class="sourceCode" id="cb20"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb20-1" data-line-number="1">pure f <span class="fu">&lt;*&gt;</span> pure x <span class="fu">=</span> pure (f x)</a></code></pre></div>
+<h5 id="interchange">Interchange</h5>
+<div class="sourceCode" id="cb21"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb21-1" data-line-number="1">u <span class="fu">&lt;*&gt;</span> pure y <span class="fu">=</span> pure (<span class="fu">$</span> y) <span class="fu">&lt;*&gt;</span> u</a></code></pre></div>
+<p>If we compare, <code>$</code> (which is just function application), <code>&lt;$&gt;</code> (<code>fmap</code>) and <code>&lt;*&gt;</code></p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb22-1" data-line-number="1"><span class="fu">$</span><span class="ot">   ::</span>(a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span>   a <span class="ot">-&gt;</span>   b</a>
+<a class="sourceLine" id="cb22-2" data-line-number="2"><span class="fu">&lt;$&gt;</span><span class="ot"> ::</span>(a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> f a <span class="ot">-&gt;</span> f b</a>
+<a class="sourceLine" id="cb22-3" data-line-number="3"><span class="fu">&lt;*&gt;</span><span class="ot"> ::</span>(a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> f a <span class="ot">-&gt;</span> f b</a></code></pre></div>
+<p>we see that <code>fmap</code> is jut function application over a functor, and applicative application is just functoral application, where the function is within a structure, which implies that the structures must be combined in some way.</p>
+<p><code>&lt;*&gt;</code> lets us do function application on functions in a structure like so:</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb23-1" data-line-number="1"><span class="dt">Just</span> (<span class="fu">*</span><span class="dv">2</span>) <span class="fu">&lt;*&gt;</span> <span class="dt">Just</span> <span class="dv">3</span></a>
+<a class="sourceLine" id="cb23-2" data-line-number="2"><span class="ot">=&gt;</span> <span class="dt">Just</span> <span class="dv">6</span></a></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb24-1" data-line-number="1"><span class="dt">Nothing</span> <span class="fu">&lt;*&gt;</span> <span class="dt">Just</span> <span class="dv">3</span></a>
+<a class="sourceLine" id="cb24-2" data-line-number="2"><span class="ot">=&gt;</span> <span class="dt">Nothing</span></a></code></pre></div>
+<p>Wrapping a function in <code>pure</code> and applying <code>&lt;*&gt;</code> is the same as just fmapping using the function.</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb25-1" data-line-number="1">pure f <span class="fu">&lt;*&gt;</span> y <span class="fu">==</span> f <span class="fu">&lt;$&gt;</span> y</a></code></pre></div>
+<p>Applicatives have their structure combined using a monoidal pattern, however because there are multiple possible monoidal patterns on many types, there is no gurantee the applicative will use any specific Monoid instance for that type. Also, there is no typeclass constraint on Applicatives that they must be Monoids.</p>
+<p>The function application component will be the same as <code>fmap</code> though, as there is only one valid factoral instance for a given type.</p>
+<h4 id="monad">Monad</h4>
+<p>As <a href="https://github.com/ncollins">Nick Collins</a> fantasticlly explained during our Haskell Study group, Monad’s bind (<code>&gt;&gt;=</code>) is nothing more than flatMap.</p>
+<p>Definition:</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb26-1" data-line-number="1"><span class="kw">class</span> <span class="dt">Applicative</span> m <span class="ot">=&gt;</span> <span class="dt">Monad</span> m <span class="kw">where</span></a>
+<a class="sourceLine" id="cb26-2" data-line-number="2"><span class="ot">(&gt;&gt;=) ::</span> m a <span class="ot">-&gt;</span> (a <span class="ot">-&gt;</span> m b) <span class="ot">-&gt;</span> m b</a>
+<a class="sourceLine" id="cb26-3" data-line-number="3"><span class="ot">(&gt;&gt;) ::</span> m a <span class="ot">-&gt;</span> m b <span class="ot">-&gt;</span> m b</a>
+<a class="sourceLine" id="cb26-4" data-line-number="4">return<span class="ot"> ::</span> a <span class="ot">-&gt;</span> m a</a></code></pre></div>
+<p>I also learned about the fish operator:</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb27-1" data-line-number="1">(<span class="fu">&gt;=&gt;</span>) <span class="dt">Monad</span> m <span class="ot">-&gt;</span> (a <span class="ot">-&gt;</span> m b) <span class="ot">-&gt;</span> (b <span class="ot">-&gt;</span> m c) <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> m c</a></code></pre></div>
+<p>I don’t have much to say about monads other than if you just treat them like things which support flatMap (whereby you are able to flatten out structures generated from calling bind, while adding new resulting values to the new structure) I find that they become a lot easier to work with and reason about.</p>
+<h4 id="foldable">Foldable:</h4>
+<p>Foldable (which is a typeclass which allows your datastructure to be folded over), requires only either <code>foldr</code> or or <code>foldMap</code> to be defined. If you define <code>foldMap</code> you need for the type to also have a Monoid instance so you are able to use <code>mappend</code> / <code>mconcat</code> to summarize the monoid structures you are folding over.</p>
+<p>By defining a foldable instance for your type, you are also able to get a number of convenience functions which can be written using folding functions infered automatically including:</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb28-1" data-line-number="1"><span class="ot">foldl' ::</span> (b <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> b <span class="ot">-&gt;</span> t a <span class="ot">-&gt;</span> b</a>
+<a class="sourceLine" id="cb28-2" data-line-number="2"><span class="ot">toList ::</span> t a <span class="ot">-&gt;</span> [a]</a>
+<a class="sourceLine" id="cb28-3" data-line-number="3">null<span class="ot"> ::</span> t a <span class="ot">-&gt;</span> <span class="dt">Bool</span></a>
+<a class="sourceLine" id="cb28-4" data-line-number="4">length<span class="ot"> ::</span> t a <span class="ot">-&gt;</span> <span class="dt">Int</span></a>
+<a class="sourceLine" id="cb28-5" data-line-number="5">elem<span class="ot"> ::</span> <span class="dt">Eq</span> a <span class="ot">=&gt;</span> a <span class="ot">-&gt;</span> t a <span class="ot">-&gt;</span> <span class="dt">Bool</span> </a>
+<a class="sourceLine" id="cb28-6" data-line-number="6">maximum<span class="ot"> ::</span> forall a<span class="fu">.</span> <span class="dt">Ord</span> a <span class="ot">=&gt;</span> t a <span class="ot">-&gt;</span> a </a>
+<a class="sourceLine" id="cb28-7" data-line-number="7">minimum<span class="ot"> ::</span> forall a<span class="fu">.</span> <span class="dt">Ord</span> a <span class="ot">=&gt;</span> t a <span class="ot">-&gt;</span> a </a>
+<a class="sourceLine" id="cb28-8" data-line-number="8">sum<span class="ot"> ::</span> <span class="dt">Num</span> a <span class="ot">=&gt;</span> t a <span class="ot">-&gt;</span> a </a>
+<a class="sourceLine" id="cb28-9" data-line-number="9">product<span class="ot"> ::</span> <span class="dt">Num</span> a <span class="ot">=&gt;</span> t a <span class="ot">-&gt;</span> a </a></code></pre></div>
+<p>While learning about Foldable with <a href="https://github.com/sgepigon">Santiago Gepigon</a> during the Haskell Study Group, we also learned about the <code>ScopedTypeVariables</code> language extension and how it is needed to define type signatures for polymorphic functions defined in where clauses.</p>
+<h4 id="traversable">Traversable:</h4>
+<p>As described in the book:</p>
+<p>“Traversable allows you to transform elements in a structure (like functor) while producing applicative effects along the way, and lift the (potentially multiple) applicative effects outside of the traversable structure.”</p>
+<p>Has 2 functions:</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb29-1" data-line-number="1">sequenceA<span class="ot"> ::</span> (<span class="dt">Traversable</span> t, <span class="dt">Applicative</span> f) <span class="ot">=&gt;</span> t (f a) <span class="ot">-&gt;</span> f (t a)</a></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb30-1" data-line-number="1">traverse<span class="ot"> ::</span> (<span class="dt">Traversable</span> t, <span class="dt">Applicative</span> f) <span class="ot">=&gt;</span> (a <span class="ot">-&gt;</span> f b) <span class="ot">-&gt;</span> t a <span class="ot">-&gt;</span> f (t b)</a></code></pre></div>
+<p>Here are some examples of how they work:</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb31-1" data-line-number="1">sequenceA  [<span class="dt">Just</span> <span class="dv">1</span>, <span class="dt">Just</span> <span class="dv">2</span>, <span class="dt">Just</span> <span class="dv">3</span>] </a>
+<a class="sourceLine" id="cb31-2" data-line-number="2"><span class="ot">=&gt;</span> <span class="dt">Just</span> [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>]</a>
+<a class="sourceLine" id="cb31-3" data-line-number="3">sequenceA  [<span class="dt">Just</span> <span class="dv">1</span>, <span class="dt">Just</span> <span class="dv">2</span>, <span class="dt">Nothing</span>]</a>
+<a class="sourceLine" id="cb31-4" data-line-number="4"><span class="ot">=&gt;</span> <span class="dt">Nothing</span></a>
+<a class="sourceLine" id="cb31-5" data-line-number="5">sequenceA<span class="ot"> ::</span> (<span class="dt">Traversable</span> t, <span class="dt">Applicative</span> f)</a>
+<a class="sourceLine" id="cb31-6" data-line-number="6"><span class="ot">=&gt;</span> <span class="ot">-&gt;</span> t (f a) <span class="ot">-&gt;</span> f (t a)</a>
+<a class="sourceLine" id="cb31-7" data-line-number="7">traverse<span class="ot"> ::</span> (<span class="dt">Traversable</span> t, <span class="dt">Applicative</span> f)</a>
+<a class="sourceLine" id="cb31-8" data-line-number="8"><span class="ot">=&gt;</span> (a <span class="ot">-&gt;</span> f a) <span class="ot">-&gt;</span> t a <span class="ot">-&gt;</span> f (t a)</a></code></pre></div>
+<p><code>traverse</code> must follow the following laws:</p>
+<h5 id="naturality">Naturality</h5>
+<div class="sourceCode" id="cb32"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb32-1" data-line-number="1">t <span class="fu">.</span> traverse f <span class="fu">=</span> traverse (t <span class="fu">.</span> f)</a></code></pre></div>
+<h5 id="identity-2">Identity</h5>
+<div class="sourceCode" id="cb33"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb33-1" data-line-number="1">traverse <span class="dt">Identity</span> <span class="fu">=</span> <span class="dt">Identity</span></a></code></pre></div>
+<h5 id="composition-2">Composition</h5>
+<div class="sourceCode" id="cb34"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb34-1" data-line-number="1">traverse (<span class="dt">Compose</span> <span class="fu">.</span> fmap g <span class="fu">.</span> f) <span class="fu">=</span> <span class="dt">Compose</span> <span class="fu">.</span> fmap (traverse g) <span class="fu">.</span> traverse f</a></code></pre></div>
+<p><code>sequenceA</code> must follow the following laws:</p>
+<h5 id="naturality-1">Naturality</h5>
+<div class="sourceCode" id="cb35"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb35-1" data-line-number="1">t <span class="fu">.</span> sequenceA <span class="fu">=</span> sequenceA <span class="fu">.</span> fmap t</a></code></pre></div>
+<h5 id="identity-3">Identity</h5>
+<div class="sourceCode" id="cb36"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb36-1" data-line-number="1">sequenceA <span class="fu">.</span> fmap <span class="dt">Identity</span> <span class="fu">=</span> <span class="dt">Identity</span></a></code></pre></div>
+<h5 id="composition-3">Composition</h5>
+<div class="sourceCode" id="cb37"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb37-1" data-line-number="1">sequenceA <span class="fu">.</span> fmap <span class="dt">Compose</span> <span class="fu">=</span> <span class="dt">Compose</span> <span class="fu">.</span> fmap sequenceA <span class="fu">.</span> sequenceA</a></code></pre></div>
+<p>Traverse is really useful when you have a traversable and you need to transform it into an applicative of a traversable, while converting each element to an applicative and applying <code>&lt;*&gt;</code> to the intermediate values.</p>
+<h4 id="reader">Reader</h4>
+<p>As mentioned above, functions (<code>(-&gt;) r</code>) are functors and <code>(.) == fmap</code>. The <code>r</code> is part of the functoral structure, and therefor the only thing that can change with <code>fmap</code> application is the return value of the function.</p>
+<p>(<code>Reader r a</code>) is just a wrapper around function composition.</p>
+<p>The <code>r</code> from <code>Reader</code> here is part of the <code>f</code> structure, so it gets applied with the first argument:</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb38-1" data-line-number="1">pure<span class="ot"> ::</span> a <span class="ot">-&gt;</span> f a</a>
+<a class="sourceLine" id="cb38-2" data-line-number="2">pure<span class="ot"> ::</span> a  <span class="ot">-&gt;</span> (r <span class="ot">-&gt;</span> a)</a>
+<a class="sourceLine" id="cb38-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb38-4" data-line-number="4"><span class="ot">(&lt;*&gt;) ::</span> f (a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> f a <span class="ot">-&gt;</span> f b</a>
+<a class="sourceLine" id="cb38-5" data-line-number="5"><span class="ot">(&lt;*&gt;) ::</span> (r <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> (r <span class="ot">-&gt;</span> a) <span class="ot">-&gt;</span> (r <span class="ot">-&gt;</span> b)</a></code></pre></div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
