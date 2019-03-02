@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="https://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
@@ -31,7 +31,7 @@
             </div>
             <div class="me">
               <a href="../">
-                <img src="http://www.gravatar.com/avatar/4660a631f578dde60b765f3755ce6b3c?s=160" alt="Gravatar of Nick Sanford (傅有嘉) " title="Gravatar of Nick Sanford (傅有嘉)" class="profile-pic" />
+                <img src="https://www.gravatar.com/avatar/4660a631f578dde60b765f3755ce6b3c?s=160" alt="Gravatar of Nick Sanford (傅有嘉) " title="Gravatar of Nick Sanford (傅有嘉)" class="profile-pic" />
               </a>
             </div>
             <div class="row">
@@ -73,7 +73,7 @@
 </div>
 
 <p>Since my last post I have been climbing what I recently heard <a href="https://twitter.com/argumatronic">Julie Moronuki</a> call the <a href="https://youtu.be/iuwUUlDfHcw?t=47m32s">Haskell Pyramid</a>. I have been learning about the bread and butter abstractions which Haskell programmers use all the time and serve as useful tools to describe and compose programs. These are not only required knowledge to be able to use most of the really cool Haskell features that excite me (which I will cover in a later post) but also useful ways to model computation in general, even if one is not using Haskell.</p>
-<p>I have been learning about SemiGroups, Monoids, Functors, Applicatives, Monads, Foldables, Traversables and Reader from the <a href="http://haskellbook.com/">Haskell Book</a>, which Julie co-authored. I figured that now would be a good time to take stock of what I have learned. This is meant to be a fly by of these topics, more of a cheatsheet than a tour. If you want to learn more about these topics, I recommend checking out <a href="http://haskellbook.com/">Haskell Book</a>. All the exercises I worked through to gain an intuition about these abstractions can be found <a href="https://github.com/nicksanford/RC_haskell">here</a></p>
+<p>I have been learning about SemiGroups, Monoids, Functors, Applicatives, Monads, Foldables, Traversables and Reader from the <a href="https://haskellbook.com/">Haskell Book</a>, which Julie co-authored. I figured that now would be a good time to take stock of what I have learned. This is meant to be a fly by of these topics, more of a cheatsheet than a tour. If you want to learn more about these topics, I recommend checking out <a href="https://haskellbook.com/">Haskell Book</a>. All the exercises I worked through to gain an intuition about these abstractions can be found <a href="https://github.com/nicksanford/RC_haskell">here</a></p>
 <p>SemiGroup, Monoid, Functor, Applicative, and Monad are abstractions, which have laws, which concrete implementations must conform to in order to be a valid instances of that abstraction. While learning about these abstractions, I used QuickCheck, a property based testing library, to verify that the instances I wrote conformed to the appropriate laws. I found this to be an extremely effective way to learn new concepts because my test suite was able to serve as a constant feedback loop.</p>
 <h4 id="semigroup">SemiGroup</h4>
 <p>As described on the <a href="https://hackage.haskell.org/package/semigroups">Hackage SemiGroup package</a>, a SemiGroup is an algebraic structure, consisting of a set together with an associative, binary operation (<code>&lt;&gt;</code>). the I know this function <code>&lt;&gt;</code> is called <code>mappend</code> if on Monoid, but I don’t know what it is called on SemiGroup.</p>
