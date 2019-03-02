@@ -19,3 +19,6 @@ cabal.sandbox.config
 _cache/
 _site/
 .stack-work/
+.swp
+.swo
+.swn
