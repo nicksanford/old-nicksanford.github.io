@@ -3,7 +3,7 @@ title: first go at elm
 ---
 As mentioned in my [previous post](2016-02-14-silly-side-projects.html), this
 blog documents the silly side projects that I do for fun and education.  I have
-decided to take a stab at learning [Elm](http://elm-lang.org/), a strongly
+decided to take a stab at learning [Elm](https://elm-lang.org/), a strongly
 typed ML style functional programing language that compiles to Javascript.  If
 I like it, I may use it as the front-end of an as of yet half-baked silly side
 project that has been stewing in my head for a month or two.

@@ -13,11 +13,11 @@ useful ways to model computation in general, even if one is not using
 Haskell.
 
 I have been learning about SemiGroups, Monoids, Functors, Applicatives, Monads, Foldables, 
-Traversables and Reader from the [Haskell Book](http://haskellbook.com/), which
+Traversables and Reader from the [Haskell Book](https://haskellbook.com/), which
 Julie co-authored. I figured that now would be a good time to take stock of what
 I have learned. This is meant to be a fly by of these topics, more of a cheatsheet
 than a tour.  If you want to learn more about these topics, I recommend checking
-out [Haskell Book](http://haskellbook.com/). All the exercises I worked through 
+out [Haskell Book](https://haskellbook.com/). All the exercises I worked through 
 to gain an intuition about these abstractions can be found 
 [here](https://github.com/nicksanford/RC_haskell)
 
